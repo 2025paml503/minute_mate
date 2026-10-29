@@ -39,7 +39,7 @@ model, tokenizer = load_model("Qwen/Qwen2.5-1.5B-Instruct")
 dev = pd.read_csv("data/dev_samples.csv")
 dialogue = dev.iloc[0]["daialogue"]
 
-answer = generate_text(model, tokenizer, user_text=dialogue, system_prompt="You are a helpful assistant that summarizes conversations.")
+answer = generate_text(model, tokenizer, user_text=dialogue, system_prompt="You are a helpful assistant that summarizes conversations.", do_sample=False)
 
 print(answer)
 print("\n Human summary:\n", dev.iloc[0]["summary"])
