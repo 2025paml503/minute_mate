@@ -1,5 +1,5 @@
 import time, pandas as pd
-from minutes.engine import load_model, generate_text
+from src.minutes.engine import load_model, generate_text
 
 model, tokenizer = load_model("Qwen/Qwen2.5-1.5B-Instruct")
 eval = pd.read_csv("data/eval_samples.csv")
