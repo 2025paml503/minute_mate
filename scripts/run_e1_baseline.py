@@ -1,8 +1,8 @@
 import time, pandas as pd
-from src.minutes.engine import load_model, generate_text
+from minutes.engine import load_model, generate_text
 
 model, tokenizer = load_model("Qwen/Qwen2.5-1.5B-Instruct")
-eval = pd.read_csv("../../data/eval_samples.csv")
+eval = pd.read_csv("data/eval_samples.csv")
 rows = []
 for i, row in eval.iterrows():
     prompt = f"Summarize the following conversation:\n{row['dialogue']}\n\nSummary:"
