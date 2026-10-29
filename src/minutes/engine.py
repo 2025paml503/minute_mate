@@ -29,7 +29,7 @@ def generate_text(model, tokenizer, user_text, system_prompt=None, max_new_token
     inputs = tokenizer(prompt, return_tensors="pt").to(model.device)
     with torch.no_grad():
         outputs = model.generate(**inputs, max_new_tokens=max_new_tokens, pad_token_id=tokenizer.eos_token_id, **decoding)
-    new_tokens = outputs[0][len(inputs.input_ids.shape[1]):]
+    new_tokens = outputs[0][inputs.input_ids.shape[1]:].len()
     generated_text = tokenizer.decode(new_tokens, skip_special_tokens=True).strip()
     return generated_text
 
