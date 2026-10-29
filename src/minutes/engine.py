@@ -12,6 +12,7 @@ def pick_device():
 
 def load_model(model_name="Qwen/Qwen2.5-1.5B-Instruct"):
     device = pick_device()
+    print(f"Loading model {model_name} on device {device}")
     tokenizer = AutoTokenizer.from_pretrained(model_name)
     model = AutoModelForCausalLM.from_pretrained(model_name).to(device)
     model.eval()
@@ -33,11 +34,11 @@ def generate_text(model, tokenizer, user_text, system_prompt=None, max_new_token
     return generated_text
 
 import pandas as pd
-from src.minutes.engine import load_model, generate_text
+# from src.minutes.engine import load_model, generate_text
 
 model, tokenizer = load_model("Qwen/Qwen2.5-1.5B-Instruct")
 dev = pd.read_csv("data/dev_samples.csv")
-dialogue = dev.iloc[0]["daialogue"]
+dialogue = dev.iloc[0]["dialogue"]
 
 answer = generate_text(model, tokenizer, user_text=dialogue, system_prompt="You are a helpful assistant that summarizes conversations.", do_sample=False)
 
