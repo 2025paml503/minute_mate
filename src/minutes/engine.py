@@ -37,7 +37,7 @@ import pandas as pd
 # from src.minutes.engine import load_model, generate_text
 
 model, tokenizer = load_model("Qwen/Qwen2.5-1.5B-Instruct")
-dev = pd.read_csv("data/dev_samples.csv")
+dev = pd.read_csv("../..data/dev_samples.csv")
 dialogue = dev.iloc[0]["dialogue"]
 
 answer = generate_text(model, tokenizer, user_text=dialogue, system_prompt="You are a helpful assistant that summarizes conversations.", do_sample=False)
