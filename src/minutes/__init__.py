@@ -1,0 +1,1 @@
+"""Meeting-minutes extraction, validation, and tool simulation."""

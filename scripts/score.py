@@ -1,23 +1,38 @@
-import re, pandas as pd, numpy as np
-from rouge_score import rouge_scorer
-scorer = rouge_scorer.RougeScorer(["rouge1", "rouge2", "rougeL"], use_stemmer=True)
+"""Compatibility wrapper for scoring an individual experiment CSV."""
 
-def speakers_of(dialogue):
-    return sorted({line.split(":")[0].strip() for line in dialogue.split("\n") if ":" in line})
+import pandas as pd
 
-def hallucinated_names(output, dialogue):
-    """ Return capitalized words in the output that are not in the dialogue. """
-    words = re.findall(r"\b([A-Z][a-z]+)\b", output)
-    return sorted(w for w in set(words) if w.lower() not in dialogue.lower())
+from src.minutes.score import hallucinated_names, score_record, speakers_of
+from .common import read_csv
+
 
 def score_file(path, eval_csv="data/eval_samples.csv"):
-    df = pd.read_csv(path).merge(pd.read_csv(eval_csv)[["id", "dialogue"]], on="id")
-    for k in ["rouge1", "rouge2", "rougeL"]:
-        df[k] = df.apply(lambda r: scorer.score(r["gold"], r["output"])[k].fmeasure, axis=1)
-    df["hallucinated_names"] = df.apply(lambda r: ", ".join(hallucinated_names(r["output"], r["dialogue"])), axis=1)
-    df["first_speaker"] = df["dialogue"].apply(lambda d: speakers_of(d)[0] if speakers_of(d) else None)
-    df["n_words"] = df["output"].str.split().str.len()
-    return df 
+    """Join source conversations and add ROUGE, length, and grounding indicators."""
+    outputs = read_csv(path, required_columns=("id", "output", "gold"))
+    conversations = read_csv(eval_csv, required_columns=("id", "dialogue"))
+    frame = outputs.merge(
+        conversations[["id", "dialogue"]],
+        on="id",
+        how="left",
+        validate="many_to_one",
+    )
+    if frame["dialogue"].isna().any():
+        missing_ids = frame.loc[frame["dialogue"].isna(), "id"].tolist()
+        raise ValueError(f"Evaluation conversations missing for IDs: {missing_ids[:10]}")
+
+    metrics = [
+        score_record(str(row.gold), str(row.output), str(row.dialogue))
+        for row in frame.itertuples(index=False)
+    ]
+    for metric in ("rouge1", "rouge2", "rougeL", "n_words", "n_hallucinated_names"):
+        frame[metric] = [result[metric] for result in metrics]
+    frame["hallucinated_names"] = [
+        ", ".join(result["hallucinated_names"]) for result in metrics
+    ]
+    frame["first_speaker"] = frame["dialogue"].apply(
+        lambda dialogue: speakers_of(dialogue)[0] if speakers_of(dialogue) else None
+    )
+    return frame
 
 if __name__ == "__main__":
     df = score_file("experiments/e2_prompt_comparison.csv")

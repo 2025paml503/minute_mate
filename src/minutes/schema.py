@@ -1,24 +1,36 @@
+"""Validated machine-readable schema for extracted meeting minutes."""
+
 from typing import Literal
-from xml.parsers.expat import model
-from pydantic import BaseModel, Field, field_validator, ValidationInfo
+
+from pydantic import BaseModel, Field, ValidationInfo, field_validator
+
 
 class ActionItem(BaseModel):
+    """A candidate action item extracted from the conversation."""
+
     owner: str | None = None
-    task: str | Field(min_length=3)
+    task: str = Field(min_length=3)
     due: str | None = None
 
-class MeetingMinuetes(BaseModel):
-    participants: list[str]
-    summary: str
-    key_points: list[str] = []
-    decision: list[str] = []
-    action_items: list[ActionItem] = []
-    open_questions: list[str] = []
+
+class MeetingMinutes(BaseModel):
+    """Structured summary grounded in the speakers and content of a transcript."""
+
+    participants: list[str] = Field(default_factory=list)
+    summary: str = Field(min_length=1)
+    key_points: list[str] = Field(default_factory=list)
+    decision: list[str] = Field(default_factory=list)
+    action_items: list[ActionItem] = Field(default_factory=list)
+    open_questions: list[str] = Field(default_factory=list)
     sentiment: Literal["positive", "neutral", "negative"] = "neutral"
 
     @field_validator("participants")
     @classmethod
-    def names_must_be_speakers(cls, names, info: ValidationInfo):
+    def names_must_be_speakers(
+        cls,
+        names: list[str],
+        info: ValidationInfo,
+    ) -> list[str]:
         allowed = (info.context or {}).get("speakers")
         if allowed is not None:
             bad = [n for n in names if n not in allowed]
@@ -26,12 +38,19 @@ class MeetingMinuetes(BaseModel):
                 raise ValueError(f"participants must be in speakers: {bad}")
         return names
 
+
+# Preserve the spelling used by the original structured-output implementation.
+MeetingMinuetes = MeetingMinutes
+
+
 SCHEMA_TEXT = """{
-  "participants": ["Alice", ...],
-  "summary": "1-3 sentences summarizing the meeting",
-  "key_points": ["short bullet points of key points", ...],
-  "decision": ["short bullet points of decisions made", ...],
-  "action_items": [{"owner": "name or null", "task": "what to do", "due": "words from chat or null"}],
-  "open_questions": ["unanswered questions from the meeting", ...],
-  "sentiment": "positive|neutral|negative"
+  "participants": [],
+  "summary": "One to three sentences summarizing the conversation",
+  "key_points": [],
+  "decision": [],
+  "action_items": [
+    {"owner": null, "task": "A task explicitly agreed in the conversation", "due": null}
+  ],
+  "open_questions": [],
+  "sentiment": "positive, neutral, or negative"
 }"""
