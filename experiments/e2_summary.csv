@@ -1,0 +1,11 @@
+prompt_id,bucket,example_count,source_ids,mean_rouge1,mean_rouge2,mean_rougeL,mean_n_words,source,status
+p1_zero_shot,short,1,13730001,,,,,data/eval_samples.csv,not_measured
+p2_few_shot,short,1,13715777,,,,,data/eval_samples.csv,not_measured
+p3_role,short,1,13865102,,,,,data/eval_samples.csv,not_measured
+p4_constrained,short,1,13717117,,,,,data/eval_samples.csv,not_measured
+p5_detailed,short,1,13727769,,,,,data/eval_samples.csv,not_measured
+p1_zero_shot,short,1,13864470,,,,,data/eval_samples.csv,not_measured
+p2_few_shot,short,1,13829332,,,,,data/eval_samples.csv,not_measured
+p3_role,short,1,13828832,,,,,data/eval_samples.csv,not_measured
+p4_constrained,short,1,13681171,,,,,data/eval_samples.csv,not_measured
+p5_detailed,short,1,13716169,,,,,data/eval_samples.csv,not_measured

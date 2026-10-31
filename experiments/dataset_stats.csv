@@ -1,0 +1,52 @@
+id,bucket,n_turns,dialogue_words,reference_summary_words,missing_dialogue,missing_summary,dialogue,gold,source
+13730001,short,4,37,11,False,False,"Jacob: Emily!! stop the busses .. I am not on my way..
+Emily: Hurry up!! the busses are about to leave..
+Jacob: Count to 10 and i will reach the parking lot
+Emily: 10..9..1 where are you...",Emily is waiting for Jacob while the buses have almost left.,data/eval_samples.csv
+13715777,short,5,47,13,False,False,"Eric: <file_video>, check it out :D
+Samantha: HAHA, what is our favorite professor?
+Eric: Talking about this recent scandal on the news :P
+Noah: ""I am the smartest person alive, I knew this will happen"" :D
+Samantha: Hahaha, now I don't even need to open the video","Eric, Samantha and Noah's professor is commenting a recent scandal on the news. ",data/eval_samples.csv
+13865102,short,5,30,14,False,False,"Lena: Do you like Felix Laband?
+Bob: very much
+Nigel: me too, I went to the concert last night when he was in Paris
+Lena: was it good?
+Nigel: very!",Nigel was at Felix Laband's concert in Paris last night. Bob likes him too. ,data/eval_samples.csv
+13717117,short,5,31,20,False,False,"Mark: who wants to go and see 'Batman. New Beginning' this Sat at 7?
+Clint: me!
+Phil: me too! 
+Mark: cool. I can get tickets for us all.
+Clint: thats great","Mark, Clint and Phil are going to watch ""Batman. New Beginning"" on Saturday, at 7. Mark will get the tickets.",data/eval_samples.csv
+13727769,short,6,42,13,False,False,"Chris: Oh, and we pushed some girls into the pool :)
+June: That's not nice!
+Chris: Depends how u look at it ;)
+June: How come?
+Chris: Well, we got them to undress, 'cause they were soaking wet :)
+June: Ur awful!",Some girls had to undress because they had been pushed into the pool.,data/eval_samples.csv
+13864470,short,6,42,15,False,False,"William: hey im making spaghetti
+William: could you please buy some fresh tomatoes
+William: pretty please :)
+Olivia: no problem dear :)
+William: and Beth? it wouldn't hurt to have some chocolate for after the dinner :D
+Beth: I'm on it :D",William is making spaghetti. Olivia will buy fresh tomatoes for William. Beth will buy chocolate.,data/eval_samples.csv
+13829332,short,3,18,8,False,False,"Mike: Do u have new John's number?
+Ann: No, u should ask Mary.
+Mike: Ok, thank u :*",Mike will ask Mary for John's new number.,data/eval_samples.csv
+13828832,short,5,44,16,False,False,"Paul: hey Matthew did you find anyone to couch the game Saturday?
+Matthew: hey Paul, no still looking 
+Paul: my plans changed so I can do it if you need 
+Matthew: ahh yes that be great! thank you 
+Paul: no problem see you Saturday ",Paul can couch the game on Saturday as Matthew hasn't found anyone to do that yet. ,data/eval_samples.csv
+13681171,short,4,20,7,False,False,"Tanya: are you better today?
+Rosie: better, but not good
+Tanya: it's great to hear that
+Tanya: i was worried","Rosie is better, but still not well.",data/eval_samples.csv
+13716169,short,8,73,29,False,False,"Casey: <file_photo>
+Amelia: these are so nice!!! did you do them yourself?
+Kristen: wooow amazing
+Amelia: i want my nails done like that too!
+Casey: yeah i did it myself :D got a new nail polish but damn it took me nearly 4 hours lol
+Amelia: can you do it for us too?
+Kristen: pretty please!
+Casey: sorry you guys... it was a nightmare :( seriously 4 hours for nails is too much","Casey got a new nail polish and did her nails herself. It took her nearly 4 hours, so she won't do her friends' nails, as it takes too long.",data/eval_samples.csv

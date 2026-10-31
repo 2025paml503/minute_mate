@@ -1,0 +1,11 @@
+decoding,repeat,example_count,source_ids,mean_rouge1,mean_rouge2,mean_rougeL,output_variability,source,status
+greedy,0,1,13730001,,,,,data/eval_samples.csv,not_measured
+t0.3,0,1,13715777,,,,,data/eval_samples.csv,not_measured
+t0.7,0,1,13865102,,,,,data/eval_samples.csv,not_measured
+t1.0,0,1,13717117,,,,,data/eval_samples.csv,not_measured
+top0.7_topp0.9,0,1,13727769,,,,,data/eval_samples.csv,not_measured
+top0.7_topk50,0,1,13864470,,,,,data/eval_samples.csv,not_measured
+greedy,0,1,13829332,,,,,data/eval_samples.csv,not_measured
+t0.3,0,1,13828832,,,,,data/eval_samples.csv,not_measured
+t0.7,0,1,13681171,,,,,data/eval_samples.csv,not_measured
+t1.0,0,1,13716169,,,,,data/eval_samples.csv,not_measured
